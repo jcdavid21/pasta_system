@@ -25,8 +25,6 @@
         <i class="fa-solid fa-bars"></i>
       </div>
 
-
-
       <div class="right">
       <a href="./components/Menus.php"><div class="prod">Shop</div></a>
              <a href="./components/cart.php">Cart</i></a>
