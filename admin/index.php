@@ -220,10 +220,6 @@ require_once("../backend/config/config.php");
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <?php include "footer.php"; ?>
-            <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
 

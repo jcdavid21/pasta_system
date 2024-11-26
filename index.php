@@ -71,7 +71,9 @@
             <div class="header-text">
                 <h1>Maristel's Eatery</h1>
                 <p>Delicious food at your doorstep</p>
+                <a href="./components/Menus.php">
                 <button>Order Now</button>
+                </a>
             </div>
         </div>
 

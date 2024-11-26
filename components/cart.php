@@ -92,7 +92,7 @@ require_once("../backend/config/config.php");
                                 <tr>
                                     <td>
                                         <div class="img-con">
-                                        <img src="../assets/products/<?php echo $data["prod_img"]; ?>/<?php echo $data["prod_img"]; ?>" alt="">
+                                        <img src="../assets/products/<?php echo $data["prod_img"]; ?>" alt="">
                                         </div>
                                     </td>
                                     <td><?php echo $data["prod_name"]; ?></td>

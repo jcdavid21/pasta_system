@@ -29,7 +29,7 @@ $(document).ready(()=>{
                     }else{
                         console.log(response)
                         Swal.fire({
-                            title: "Welcome back!",
+                            title: "Success!",
                             text: "Successfully Log in",
                             
                             showConfirmButton: false,

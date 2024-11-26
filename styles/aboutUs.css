@@ -187,8 +187,4 @@ main .con-flex .vid-con{
         max-height: 800px;
     }
 
-    main .con-flex .vid-con{
-        height: 300px;
-        object-fit: cover;
-    }
 }
