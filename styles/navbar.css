@@ -1,0 +1,216 @@
+/* Your CSS styles */
+nav {
+    padding: 0 20px;
+    height: 80px;
+    background: #ffffff;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    gap: 20px;
+    box-shadow: 1px 2px 5px -1px rgba(0,0,0,0.44);
+-webkit-box-shadow: 1px 2px 5px -1px rgba(0,0,0,0.44);
+-moz-box-shadow: 1px 2px 5px -1px rgba(0,0,0,0.44);
+  }
+
+  nav .mid .img-con{
+    height: 100px;
+    width: 100px;
+    display: none;
+  }
+
+  nav .left a, nav .right a{
+    text-decoration: none;
+    color: rgb(55, 55, 55);
+  }
+
+  .title-name{
+    background-color: rgb(23, 100, 148);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+
+  }
+
+
+  nav i {
+    cursor: pointer;
+  }
+
+  nav .right {
+    display: flex;
+    gap: 14px;
+  }
+
+  nav .right .login {
+    display: none;
+  }
+
+
+  nav .left {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 40px;
+    gap: 10px;
+    z-index: 1000;
+    transition: 0.3s ease;
+    height: 0;
+    overflow: hidden;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+  }
+
+  #bar {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-size: 20px;
+  }
+
+  nav .left i {
+    display: none;
+  }
+
+
+  nav .left a:hover div{
+    background: #1b1b1b;
+    color: white;
+  }
+
+  nav .left div, nav .right a{
+    border: 1px solid transparent;
+  }
+
+
+  /* Dropdown Button */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: -130px;
+  bottom: -100px;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+.count-div{
+  position: relative;
+}
+
+nav .right .count {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  text-align: center;
+  line-height: 18px; /* Ensures the text is vertically centered */
+}
+
+nav .left a:hover div, nav .right a i:hover, nav .right a:hover .prod,
+nav .right a:hover .history{
+  background: none;
+  border-bottom: 1px solid rgb(23, 100, 148);
+  color: white;
+}
+
+.dropdown i{
+  color: black;
+}
+
+.dropdown #dropdownContent a{
+  color: black;
+}
+
+  @media (min-width: 768px) {
+    nav {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      height: 80px;
+    }
+
+    nav .left,
+    nav .right {
+      display: flex;
+      align-items: center;
+    }
+
+    nav .right .login{
+      display: block;
+      cursor: pointer;
+      border: 1px solid lightslategray;
+      padding: 3px 18px;
+      font-size: 14px;
+      border-radius: 50px;
+    }
+
+    nav .right .login:hover{
+      background: lightslategray;
+      color: white;
+      border-color: transparent;
+  }
+
+    nav .left{
+      position: static;
+      line-height: 20px;
+      gap: 30px;
+      overflow: visible;
+      border-bottom: none;
+      height: 70px !important;
+    }
+
+    nav .left a:hover div, nav .right a i:hover, nav .right a:hover .prod,
+    nav .right a:hover .history{
+      background: none;
+      border-bottom: 1px solid rgb(23, 100, 148);
+      color: rgb(64, 64, 64);
+    }
+
+    nav .left .login, #bar{
+      display: none;
+    }
+    
+    nav .left i, nav .mid .img-con{
+      display: block;
+    }
+
+    nav .mid .img-con{
+      border-radius: 50px;
+      overflow: hidden;
+    }
+
+  }

@@ -1,0 +1,264 @@
+body{
+    margin-top: 100px;
+}
+
+.center, 
+main .center .con .container .con-item .div-button 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .con .header-con
+{
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+}
+
+main .con .header-con p
+{
+    color: rgb(109, 109, 109);
+    font-size: 14px;
+    font-weight: 300;
+}
+
+main .con .header-con h1
+{
+    font-weight: 500;
+    color: rgb(55, 55, 55);
+}
+
+main .center .con
+{
+    max-width: 1200px;
+    width: 100%;
+    padding: 30px 20px;
+}
+
+main .center .con .img-con
+{
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+}
+
+main .center .con .img-con img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+main .center .con .container .menus
+{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+#product, #add-ons, #items, #order_type, #flavors
+{
+    width: 100%;
+    height: 36px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    padding: 0 8px;
+}
+
+
+.select-order{
+    display: flex;
+    gap: 50px;
+}
+
+.select-con{
+    flex: 1;
+}
+
+.add-cart{
+    display: flex;
+    justify-content: end;
+}
+
+.add-cart button{
+    padding: 10px 20px;
+    background-color: rgb(27, 27, 27);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.16s ease-in-out;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.add-cart button:hover{
+    background-color: rgb(46, 46, 46);
+}
+
+#qnty input{
+    width: 100%;
+    height: 36px;
+    border-radius: 6px;
+    padding: 0 8px;
+    border: 1px solid lightgray;
+}
+
+.check{
+    width: max-content;
+    background: rgb(29, 169, 21);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 50px;
+    font-size: 10px;
+    display: none;
+    transition: 0.6s;
+}
+
+.items-img{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.con-items .img-con{
+    height: 300px;
+    cursor: pointer;
+    background-color: rgb(237, 237, 237);
+}
+
+.con-items #items-con select, .con-items #qnty input{
+    width: 30%;
+    height: 36px;
+    border-radius: 6px;
+    padding: 0 8px;
+    border: 1px solid lightgray;
+}
+
+.details{
+    background: rgb(27, 27, 27);
+    color: white;
+    padding: 10px 20px;
+    border-top: 1px solid rgb(237, 237, 237);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+}
+
+.prod-name{
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.prod-price{
+    background-color: white;
+    color: red;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+
+.img-con{
+    border: 1px solid rgb(237, 237, 237);
+    position: relative;
+}
+
+.select-con label{
+    font-size: 14px;
+    font-weight: 300;
+    color: #082742;
+}
+
+.con-items .grid-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stocks{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgb(29, 169, 21);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 50px;
+    font-size: 10px;
+}
+
+.no-products-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgb(109, 109, 109);
+}
+
+.center .name{
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+    padding: 4px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+    width: 100%;
+    text-align: center;
+}
+
+.text {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgb(218, 218, 218);  
+    line-height: 20px;
+    margin: 20px 0;
+}
+
+.center button{
+    padding: 10px 20px;
+    background-color: white;
+    color: rgb(55, 55, 55);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.16s ease-in-out;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.center button:hover{
+    background-color: rgb(237, 237, 237);
+}
+
+
+.content .details{
+    height: 300px;
+}
+
+.content .details-item{
+    height: max-content;
+    background: rgb(46, 46, 46);
+    color: white;
+    padding: 10px 20px;
+    border-top: 1px solid rgb(237, 237, 237);
+    margin-bottom: 20px;
+    
+}
+
+.content .details-item .title{
+    font-size: 18px;
+    font-weight: 500;
+    margin: 20px;
+}

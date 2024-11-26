@@ -1,0 +1,341 @@
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main{
+    margin-top: 150px;
+}
+
+.content{
+    max-width: 1200px;
+    width: 100%;
+}
+
+.details .name{
+    font-size: 28px;
+    font-weight: 600;
+    color: #0e385c;
+    letter-spacing: 1px;
+    width: 80%;
+   
+}
+
+.grid .img-con{
+    box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.42);
+-webkit-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.42);
+-moz-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.42);
+border-radius: 8px;
+}
+
+.grid .img-con img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.details .text .title{
+    color: #0e385c;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 6px;
+    
+}
+
+.details .center{
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid #969696;
+    margin-bottom: 20px;
+    padding-bottom: 6px;
+}
+
+.details .price{
+    font-size: 20px;
+    font-weight: 600;
+    color: #0e385c;
+
+}
+
+.details .text{
+    font-size: 16px;
+    font-weight: 300;
+    color: #797979;
+}
+
+.content .grid{
+    display: grid;
+    grid-template-columns: 1fr 600px;
+    gap: 100px;
+    align-items:center;
+    justify-content: space-between;
+}
+
+
+.slide-div{
+    margin-top: 100px;
+    margin-bottom: 80px;
+}
+
+.slide-div .grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+    gap: 20px;
+}
+
+.img-con-click .img-con{
+    height: 350px;
+    margin-bottom: 10px;
+}
+
+.slide-div .title{
+    font-size: 24px;
+    font-weight: 500;
+    color: #0e385c;
+    margin-bottom: 20px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #969696;
+}
+
+.feedback-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 20px;
+    max-height: 500px;
+    margin-bottom: 40px;
+    padding: 20px 10px;
+    overflow: auto;
+}
+
+/* Feedback Section */
+.feedbacks {
+    flex: 1;
+    min-width: 300px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feedbacks .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.feedback-item {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.feedback-item .name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.feedback-item .date {
+    font-size: 12px;
+    color: #888;
+    margin-left: 10px;
+}
+
+.feedback-item .text {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Feedback Form Section */
+.feedback-form {
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-form .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.form-group button {
+    background-color: #0e385c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #083048;
+}
+
+/* Responsive: stack columns on small screens */
+@media (max-width: 768px) {
+    .feedback-container {
+        flex-direction: column;
+    }
+}
+
+.price-con{
+    margin-bottom: 12px;
+}
+
+.add-to-cart{
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #0e385c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.16s ease-in-out;
+    text-align: end;
+}
+
+.content .details-item{
+    height: max-content;
+    background: rgb(46, 46, 46);
+    color: white;
+    padding: 10px 20px;
+    border-top: 1px solid rgb(237, 237, 237);
+    margin-bottom: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.content .details-item .title
+{
+    font-size: 28px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 1px;
+    width: 80%;
+}
+
+.content .details-item .title{
+    font-size: 18px;
+    font-weight: 500;
+    margin: 20px;
+}
+
+.center .view-item{
+    padding: 10px 20px;
+    background-color: white;
+    color: rgb(55, 55, 55);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.16s ease-in-out;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* Container for the quantity */
+.qnty-con {
+    margin: 1rem 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Title styling */
+.qnty-con .title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-align: left;
+    color: #333;
+}
+
+/* Centering the quantity controls */
+.qnty-con .center {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+/* Button styles */
+.qnty-con button {
+    background-color: #083048; /* Blue color */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.qnty-con button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Input field styles */
+.qnty-con input[type="number"] {
+    width: 50px;
+    height: 32px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.qnty-con input[type="number"]:focus {
+    border-color: #007bff; /* Blue border on focus */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .qnty-con .center {
+        justify-content: space-between;
+        gap: 0.3rem;
+    }
+
+    .qnty-con button {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+
+    .qnty-con input[type="number"] {
+        width: 40px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+}
