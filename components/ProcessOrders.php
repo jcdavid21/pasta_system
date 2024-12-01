@@ -118,9 +118,9 @@ require_once("../backend/config/config.php");
                                         <span class="view-driver" data-toggle="modal" data-target="#exampleModal<?php echo $data["item_id"] ?>" data-whatever="@mdo">
                                             <i class="fa-solid fa-eye"></i>
                                         </span>
-                                        <span class="delete-js" id="<?php echo $data["item_id"]; ?>">
+                                        <!-- <span class="delete-js" id="<?php echo $data["item_id"]; ?>">
                                             <i class="fa-solid fa-x"></i>
-                                        </span>
+                                        </span> -->
                                     </td>
                                     
                                     <?php }else{ ?>

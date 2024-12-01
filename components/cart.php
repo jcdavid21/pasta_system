@@ -222,25 +222,5 @@ require_once("../backend/config/config.php");
     <script src="../jquery/cart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const claimDateInput = document.getElementById('claimDate');
-            const today = new Date();
-            // Set the date to two weeks from today
-            today.setDate(today.getDate() + 15);
-            
-            // Format the date to YYYY-MM-DD (the format required by <input type="date">)
-            const dd = String(today.getDate()).padStart(2, '0');
-            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-            const yyyy = today.getFullYear();
-
-            const twoWeeksFromNow = yyyy + '-' + mm + '-' + dd;
-            
-            // Set the value of the input to two weeks from now
-            claimDateInput.value = twoWeeksFromNow;
-        });
-
-    </script>
 </body>
 </html>

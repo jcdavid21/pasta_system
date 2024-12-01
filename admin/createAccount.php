@@ -53,11 +53,6 @@ require_once("../backend/config/config.php");
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid px-4">
-            <!-- Page indicator -->
-            <h1 class="mt-4" id="full_name">Admin</h1>
-            <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item active">Create Account</li>
-            </ol>
 
                 <div class="card mb-5">
                     <div class="card-body">

@@ -53,11 +53,6 @@ require_once("../backend/config/config.php");
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid px-4">
-                    <!-- Page indicator -->
-                    <h1 class="h3 mb-2 text-gray-800">Form</h1>
-                    <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Add Product</li>
-                    </ol>
 
                     <div class="card mb-5">
                         <div class="card-body">

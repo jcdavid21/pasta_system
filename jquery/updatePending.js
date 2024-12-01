@@ -1,15 +1,16 @@
 $(document).ready(() => {
-  $('.updateBtn').on('click', function () {
+  $('.updateBtn').on('click', function (e) {
+    e.preventDefault();
     const item_id = $(this).attr('id');
     const current_status = $(this).data('status-id');
     let status_id = 0;
-
+  
     if (current_status == 3) {
       status_id = 4;
     } else {
       status_id = 2;
     }
-
+  
     Swal.fire({
       title: "Are you sure?",
       text: "This item will update the order status.",
@@ -24,9 +25,24 @@ $(document).ready(() => {
           Swal.fire({
             title: "Driver Details",
             html: `
-              <input type="text" id="driverName" class="swal2-input" placeholder="Driver's Name">
-              <input type="text" id="driverContact" class="swal2-input" placeholder="Driver's Contact Number">
-              <input type="text" id="driverRemarks" class="swal2-input" placeholder="Driver's Remarks">
+              <style>
+                                  /* Hide number input spinner */
+                  input[type="number"]::-webkit-outer-spin-button,
+                  input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                  }
+
+                  input[type="number"] {
+                    -moz-appearance: textfield; /* Firefox */
+                  }
+              </style>
+              <input type="text" id="driverName" class="swal2-input" placeholder="Driver's Name"
+              oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')" >
+
+              <input type="number" id="driverContact" class="swal2-input" placeholder="Driver's Contact Number" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)" title="Only numbers are allowed, up to 11 digits">
+
+              <input type="text" id="driverRemarks" class="swal2-input" placeholder="Driver's Remarks" >
             `,
             showCancelButton: true,
             confirmButtonText: "Save",
@@ -35,18 +51,61 @@ $(document).ready(() => {
               const driverName = $('#driverName').val();
               const driverContact = $('#driverContact').val();
               const driverRemarks = $('#driverRemarks').val();
-
+  
               // Validate the driver details
               if (!driverName || !driverContact) {
                 Swal.fire({
                   title: "Error!",
                   text: "Driver Name and Contact are required.",
-                  icon: "error",
+              
                   confirmButtonText: "OK",
                 });
                 return; // Stop the process if validation fails
               }
 
+              // Validate driver's name (no special characters)
+              if (/[^A-Za-z0-9\s]/.test(driverName)) {
+                Swal.fire({
+                  title: "Error!",
+                  text: "Driver's Name cannot contain special characters.",
+               
+                  confirmButtonText: "OK",
+                });
+                return;
+              }
+  
+              // Validate driver's contact (max 11 digits, numeric only)
+              if (!/^\d{1,11}$/.test(driverContact)) {
+                Swal.fire({
+                  title: "Error!",
+                  text: "Driver's Contact Number must be numeric and up to 11 digits.",
+                  
+                  confirmButtonText: "OK",
+                });
+                return;
+              }
+
+              if(driverContact.length < 11){
+                Swal.fire({
+                  title: "Error!",
+                  text: "Driver's Contact Number must be 11 digits.",
+                  
+                  confirmButtonText: "OK",
+                });
+                return;
+              }
+  
+              // Validate driver's remarks (no special characters)
+              if (/[^A-Za-z0-9\s]/.test(driverRemarks)) {
+                Swal.fire({
+                  title: "Error!",
+                  text: "Driver's Remarks cannot contain special characters.",
+                  
+                  confirmButtonText: "OK",
+                });
+                return;
+              }
+  
               // Save driver details to the database
               $.ajax({
                 url: "../backend/admin/saveDriverDetails.php", // New endpoint for driver details
@@ -127,6 +186,8 @@ $(document).ready(() => {
       }
     });
   });
+  
+  
 
   // $('.acceptBtn').on('click', function () {
   //   const item_id = $(this).attr('id');

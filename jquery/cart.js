@@ -82,7 +82,7 @@ $('.add-btn').on('click', function() {
 
 
 
-    $('.proceed-btn').on('click', function() {
+$('.proceed-btn').on('click', function() {
     const receiptFile = $('#receiptFile')[0].files[0];
     const refNumber = $("#refNumber").val().trim();
     const depositAmnt = $("#depAmount").val().trim();
@@ -91,20 +91,6 @@ $('.add-btn').on('click', function() {
     let remarks = $("#remarks").val().trim();
     const current_date = new Date();
     
-    // Calculate the date two weeks from now
-    const twoWeeksFromNow = new Date();
-    twoWeeksFromNow.setDate(current_date.getDate() + 14);
-    
-    // Check if claim date is less than two weeks from now
-    if (new Date(claimDate) < twoWeeksFromNow) {
-        Swal.fire({
-            title: "Invalid claim date",
-            text: "Please select a claim date at least two weeks from today.",
-            showConfirmButton: true,
-        });
-        return;
-    }
-
     // Check if the receipt file is uploaded
     if (!receiptFile) {
         Swal.fire({
@@ -165,7 +151,12 @@ $('.add-btn').on('click', function() {
         return;
     }
 
-    if(!claimDate){
+    // Validate claim date (must be within 2 weeks from now)
+    const claimDateObj = new Date(claimDate);
+    const maxClaimDate = new Date();
+    maxClaimDate.setDate(current_date.getDate() + 14); // 2 weeks from now
+
+    if (!claimDate) {
         Swal.fire({
             title: "Please select a claim date.",
             showConfirmButton: true,
@@ -173,6 +164,25 @@ $('.add-btn').on('click', function() {
         return;
     }
 
+    if (claimDateObj < current_date) {
+        Swal.fire({
+            title: "Invalid claim date",
+            text: "Claim date cannot be in the past.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    if (claimDateObj > maxClaimDate) {
+        Swal.fire({
+            title: "Invalid claim date",
+            text: "Claim date cannot be more than two weeks in advance.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    // Validate remarks
     if(remarks.length > 250){
         Swal.fire({
             title: "Invalid remarks",
@@ -242,6 +252,5 @@ $('.add-btn').on('click', function() {
     });
 });
 
-    
     
 })
