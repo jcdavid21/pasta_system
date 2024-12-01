@@ -2,22 +2,22 @@
 
     require_once("../config/config.php");
 
-    if(isset($_POST["email"]) && isset($_POST["password"]))
+    if(isset($_POST["username"]) && isset($_POST["password"]))
     {
-        $email = $_POST["email"];
+        $username = $_POST["username"];
         $password = $_POST["password"];
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = "SELECT * FROM tbl_account WHERE ac_email = ?";
+        $query = "SELECT * FROM tbl_account WHERE ac_username = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param("s", $email);
+        $stmt->bind_param("s", $username);
         $stmt->execute();   
         $result = $stmt->get_result();
 
         if($result->num_rows > 0){
-            $query = "UPDATE tbl_account SET ac_password = ? WHERE ac_email =  ?";
+            $query = "UPDATE tbl_account SET ac_password = ? WHERE ac_username =  ?";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("ss", $hashedPassword, $email);
+            $stmt->bind_param("ss", $hashedPassword, $username);
             $stmt->execute();
             echo "success";
         }else{

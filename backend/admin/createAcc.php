@@ -4,8 +4,7 @@ require_once("../reports/reports.php");
 
 if(isset($_POST["gender"]) && isset($_POST["fname"]) && isset($_POST["mname"]) &&
    isset($_POST["lname"]) && isset($_POST["email"]) && isset($_POST["contactNo"]) &&
-   isset($_POST["address"]) && isset($_POST["username"]) && isset($_POST["password"]) &&
-   isset($_POST["role_id"])) {
+   isset($_POST["address"]) && isset($_POST["username"]) && isset($_POST["password"])) {
 
     $fname = $_POST["fname"];
     $mname = $_POST["mname"];
@@ -16,7 +15,7 @@ if(isset($_POST["gender"]) && isset($_POST["fname"]) && isset($_POST["mname"]) &
     $address = $_POST["address"];
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $role_id = $_POST["role_id"];
+    $role_id = 2;
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $admin_id = $_SESSION["admin_id"];
 

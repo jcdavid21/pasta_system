@@ -60,7 +60,7 @@ require_once("../backend/config/config.php");
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Product Table</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Feedback Table</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -100,10 +100,13 @@ require_once("../backend/config/config.php");
                                             data-bs-target="#residenceAccountDetails<?php echo $data["fd_id"] ?>" data-bs-whatever="@getbootstrap">
                                             <i class="fa-solid fa-eye" style="color: #fcfcfc;"></i>
                                             </button>
+                                            <button class="btn btn-danger delete" id="<?php echo $data["fd_id"]; ?>" >
+                                                <i class="fa-solid fa-trash" style="color: #fcfcfc;"></i>
+                                            </button>
                             
                                         </td>
                                     </tr>
-                                        <div class="modal fade" id="residenceAccountDetails<?php echo $data["fd_id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="residenceAccountDetails<?php echo $data["fd_id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -125,7 +128,7 @@ require_once("../backend/config/config.php");
                                     
                                             </div>
                                         </div>
-                                        </div>
+                                    </div>
                                     <?php
                                         }
                                     ?>
@@ -182,6 +185,7 @@ require_once("../backend/config/config.php");
 
     <!-- Page level custom scripts -->
     <script src="../js/demo/datatables-demo.js"></script>
+    <script src="../jquery/deleteFd.js"></script>
     <script src="../jquery/sideBarProd.js"></script>
     <script src="../scripts/toggle.js"></script>
   </body>

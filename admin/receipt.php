@@ -73,6 +73,7 @@ require_once("../backend/config/config.php");
                                             <th>Reference No.</th>
                                             <th>Deposited Amount</th>
                                             <th>Uploaded Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -82,6 +83,7 @@ require_once("../backend/config/config.php");
                                             <th>Reference No.</th>
                                             <th>Deposited Amount</th>
                                             <th>Uploaded Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -103,8 +105,30 @@ require_once("../backend/config/config.php");
                                             <td><?php echo $data["receipt_number"]; ?></td>
                                             <td><?php echo $data["deposit_amount"]; ?></td>
                                             <td><?php echo $formattedDate; ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" id="<?php echo $data["receipt_id"] ?>"  data-bs-toggle="modal" 
+                                                data-bs-target="#receiptDetails<?php echo $data["receipt_id"] ?>" data-bs-whatever="@getbootstrap">
+                                                <i class="fa-solid fa-eye" style="color: #fcfcfc;"></i>
+                                                </button>
+                                            </td>
                                         </tr>
-                                    
+                                        <div class="modal fade" id="receiptDetails<?php echo $data["receipt_id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Receipt Details</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="height: 750px;">
+                                                        <img src="../backend/receipts/<?php echo $data["receipt_img"] ?>" alt=""
+                                                        style="height: 100%; width:100%; object-fit:contain;">
+                                                    </div>
+                                                </div>
+                                        
+                                                </div>
+                                            </div>
+                                        </div>
                                         <?php
                                             }
                                         ?>

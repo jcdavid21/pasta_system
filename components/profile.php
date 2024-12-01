@@ -23,7 +23,7 @@
         $acc_id = $_SESSION["user_id"];
         $query = "SELECT ta.account_id, ta.ac_username, 
         td.first_name, td.middle_name, td.last_name, 
-        td.contact, td.gender, td.address
+        td.contact, td.gender, td.address, td.gender
         FROM tbl_account ta
         INNER JOIN tbl_account_details td ON ta.account_id = td.account_id
         where ta.account_id = ?";
@@ -65,6 +65,19 @@
           <div class="input-box">
             <span class="details">Phone Number</span>
             <input type="text" name="contact" id="contact" placeholder="Enter your number" value="<?php echo $data["contact"]; ?>" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 11)" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Gender</span>
+            <select name="gender" id="gender">
+                <option value="Male" <?php echo ($data["gender"] == "Male") ? "selected" : ""; ?>>Male</option>
+                <option value="Female" <?php echo ($data["gender"] == "Female") ? "selected" : ""; ?>>Female</option>
+                <option value="Other" <?php echo ($data["gender"] == "Other") ? "selected" : ""; ?>>Other</option>
+            </select>
+
+          </div>
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" name="name" id="username" placeholder="Enter your username" value="<?php echo $data["ac_username"]; ?>" required>
           </div>
           <div class="input-box">
             <span class="details">Current Password</span>

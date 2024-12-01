@@ -135,7 +135,9 @@ require_once("../backend/config/config.php");
                                 <div class="modal fade" id="exampleModal<?php echo $data['item_id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <?php 
                                         // Query to fetch rider details based on item_id
-                                        $query2 = "SELECT * FROM tbl_rider_details WHERE item_id = ?";
+                                        $query2 = "SELECT tr.*, tc.order_remarks FROM tbl_rider_details tr 
+                                        JOIN tbl_cart tc ON tr.item_id = tc.item_id
+                                        WHERE tc.item_id = ?";
                                         $stmt2 = $conn->prepare($query2);
                                         $stmt2->bind_param("i", $data['item_id']);
                                         $stmt2->execute();
@@ -156,17 +158,22 @@ require_once("../backend/config/config.php");
                                                     <!-- Rider Name -->
                                                     <div class="col-md-6 mb-3">
                                                         <label for="riderName" class="form-label">Rider Name</label>
-                                                        <input type="text" disabled class="form-control" value="<?php echo isset($data2['rider_name']) ? $data2['rider_name'] : ''; ?>">
+                                                        <input type="text" disabled class="form-control" value="<?php echo isset($data2['rider_name']) ? $data2['rider_name'] : 'No rider name yet'; ?>">
                                                     </div>
                                                     <!-- Rider Contact -->
                                                     <div class="col-md-6 mb-3">
                                                         <label for="riderContact" class="form-label">Contact</label>
-                                                        <input type="text" disabled class="form-control" value="<?php echo isset($data2['rider_contact']) ? $data2['rider_contact'] : ''; ?>">
+                                                        <input type="text" disabled class="form-control" value="<?php echo isset($data2['rider_contact']) ? $data2['rider_contact'] : 'No rider contact yet'; ?>">
                                                     </div>
                                                     <!-- Remarks -->
                                                     <div class="col-12">
-                                                        <label for="riderRemarks" class="form-label">Remarks</label>
-                                                        <textarea id="remarks" name="address" class="form-control" rows="5" disabled><?php echo isset($data2['rider_remarks']) ? $data2['rider_remarks'] : ''; ?></textarea>
+                                                        <label for="riderRemarks" class="form-label">Rider Remarks</label>
+                                                        <textarea id="remarks" name="address" class="form-control" rows="5" disabled><?php echo isset($data2['rider_remarks']) ? $data2['rider_remarks'] : 'No rider remarks yet'; ?></textarea>
+                                                    </div>
+
+                                                    <div class="col-12 mt-3">
+                                                        <label for="riderRemarks" class="form-label">Order Remarks</label>
+                                                        <textarea id="remarks" name="address" class="form-control" rows="5" disabled><?php echo $data["order_remarks"] ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>

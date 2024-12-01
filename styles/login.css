@@ -95,6 +95,19 @@ form .field.error input{
   pointer-events: none;
   transform: translateY(-50%);
 }
+
+.field .input-area #togglePassword, 
+.field .input-area #toggleConfirmPassword{
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  font-size: 18px;
+  pointer-events:visible;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
 .input-area .icon{
   left: 15px;
   color: #bfbfbf;

@@ -28,23 +28,67 @@ $(document).ready(function(){
         const address = document.getElementById("address").value;    
         const contact = document.getElementById("contact").value;    
         const password = document.getElementById("password").value;    
-        const confirmPass = document.getElementById("confirmPass").value;    
+        const confirmPass = document.getElementById("confirmPass").value;
+        const userName = document.getElementById("username").value;
+        const gender = document.getElementById("gender").value; 
+        
+        if(fName === '' || fName === null)
+        {
+            swal("Empty Field!", "First Name is required!", "warning");
+            return;
+        }
+        if(lName === '' || lName === null)
+        {
+            swal("Empty Field!", "Last Name is required!", "warning");
+            return;
+        }
+        if(username === '' || username === null)
+        {
+            swal("Empty Field!", "Username is required!", "warning");
+            return;
+        }
+        if(address === '' || address === null)
+        {
+            swal("Empty Field!", "Address is required!", "warning");
+            return;
+        }
+        if(contact === '' || contact === null)
+        {
+            swal("Empty Field!", "Contact is required!", "warning");
+            return;
+        }
+        if(password === '' || password === null)
+        {
+            swal("Empty Field!", "Password is required!", "warning");
+            return;
+        }
 
-        if(fName && lName && username && address && contact) {
+        if(userName === '' || userName === null)
+        {
+            swal("Empty Field!", "Username is required!", "warning");
+            return;
+        }
+
+        if(fName && lName && username && address && contact && password && gender && userName) {
             if (!validateContactNo(contact)) {
                 swal("Invalid Contact Number!", "Contact number must be 11 digits long and start with 09.", "warning");
                 return;
             }
 
-            if (password && !validatePassword(password)) {
-                swal("Weak Password!", "Password must be at least 8 characters long and include at least one uppercase letter and one lowercase letter.", "warning");
-                return;
+
+            if(confirmPass)
+            {
+                if (password && password !== confirmPass) {
+                    swal("Password doesn't match!", "Make sure that your passwords are the same.", "warning");
+                    return;
+                }
+                
+                if (!validatePassword(confirmPass)) {
+                    swal("Weak Password!", "Password must be at least 8 characters long and include at least one uppercase letter and one lowercase letter.", "warning");
+                    return;
+                }
             }
 
-            if (password && password !== confirmPass) {
-                swal("Password doesn't match!", "Make sure that your passwords are the same.", "warning");
-                return;
-            }
 
             $.ajax({
                 url: "../backend/user/updateProfile.php",
@@ -57,7 +101,9 @@ $(document).ready(function(){
                     address,
                     contact,
                     password,
-                    confirmPass
+                    confirmPass,
+                    gender,
+                    userName
                 },
                 success: function(response) {
                     if(response === "empty") {
@@ -67,18 +113,18 @@ $(document).ready(function(){
                     } else if(response === "empty1") {
                         swal("Empty Fields!", "Please make sure other fields are filled!", "warning");
                     } else if(response === "updated") {
-                        swal("Profile Updated!", "Profile has been updated!", "success")
+                        swal("Profile Updated!", "Profile has been updated!", "")
                         .then((value) => {
                             window.location.href = "./profile.php";
                         });
+                    }else if(response === "existed") {
+                        swal("Username Existed!", "Username is already existed!", "warning");
                     }
                 },
                 error: function() {
                     alert("Connection error!");
                 }
             });
-        } else {
-            swal("Empty Fields!", "Please make sure other fields are filled!", "warning");
-        }
+        } 
     });
 });

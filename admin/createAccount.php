@@ -68,25 +68,56 @@ require_once("../backend/config/config.php");
                             </div>
 
                             <div class="col-md-4">
-                                <label for="empPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password">
+                                <label for="uname" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="uname" >
                             </div>
 
                             <div class="col-md-4">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="password">
+                                    <span class="input-group-text toggle-password" data-target="password" style="cursor: pointer;">
+                                        <i class="fa-solid fa-eye icon"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mt-2">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="confirmPassword">
+                                <span class="input-group-text toggle-password" style="cursor: pointer;" data-target="confirmPassword">
+                                    <i class="fa-solid fa-eye icon"></i>
+                                </span>
+                            </div>
+                        </div>
+
+
+
+                            <div class="col-md-4 mt-2">
                                 <label for="empFname" class="form-label">First name</label>
                                 <input type="text" class="form-control" id="fname">
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <label for="empLname" class="form-label">Last name</label>
-                                <input type="text" class="form-control" id="lname">
                             </div>
                             <div class="col-md-4 mt-2">
                                 <label for="empMname" class="form-label">Middle name</label>
                                 <input type="text" class="form-control" id="mname">
                             </div>
                             <div class="col-md-4 mt-2">
+                                <label for="empLname" class="form-label">Last name</label>
+                                <input type="text" class="form-control" id="lname">
+                            </div>
+                            <div class="col-md-4 mt-2">
                                 <label for="empMname" class="form-label">Contact Number</label>
                                 <input type="text" class="form-control" id="contact" oninput="validateInput(this)" pattern="\d*" maxlength="11">
+                            </div>
+                            <div class="col-md-4 mt-2">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select name="gender" id="gender" class="form-control">
+                                    <option value="" selected disabled>Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
                             </div>
                             <div class="col-md-4 mt-2">
                                 <label for="empAddress" class="form-label">Address</label>
@@ -133,7 +164,50 @@ require_once("../backend/config/config.php");
     <script src="../js/demo/datatables-demo.js"></script>
     <script src="../jquery/sideBarProd.js"></script>
     <script src="../jquery/createAccount.js"></script>
-    <script src="../scripts/toggle.js"></script>
+    <script>
+        document.getElementById('fname').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-z\s]/g, ''); // Only letters and spaces allowed
+        });
+        document.getElementById('lname').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-z\s]/g, ''); // Only letters and spaces allowed
+        });
+        document.getElementById('mname').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-z\s]/g, ''); // Only letters and spaces allowed
+        });
+        document.getElementById('contact').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Only numbers allowed
+        });
+        document.getElementById('uname').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-z0-9]/g, ''); // Only letters and numbers allowed
+        });
+    </script>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.toggle-password').forEach(toggle => {
+                toggle.addEventListener('click', function () {
+                    const targetId = this.getAttribute('data-target');
+                    const targetInput = document.getElementById(targetId);
+                    const icon = this.querySelector('.icon');
 
+                    if (targetInput) {
+                        if (targetInput.type === 'password') {
+                            targetInput.type = 'text'; // Change input type to text
+                            icon.classList.remove('fa-eye'); // Remove eye icon
+                            icon.classList.add('fa-eye-slash'); // Add eye-slash icon
+                        } else {
+                            targetInput.type = 'password'; // Change input type back to password
+                            icon.classList.remove('fa-eye-slash'); // Remove eye-slash icon
+                            icon.classList.add('fa-eye'); // Add eye icon
+                        }
+                    } else {
+                        console.error(`Input with id '${targetId}' not found.`);
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script src="../scripts/toggle.js"></script>
+    
   </body>
 </html>

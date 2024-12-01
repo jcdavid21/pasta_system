@@ -134,52 +134,91 @@ require_once("../backend/config/config.php");
                                     <?php } ?>
                                 </tr>
 
-                                <div class="modal fade" id="exampleModal<?php echo $data["item_id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <?php 
-                                        $query2 = "SELECT * FROM tbl_rider_details WHERE item_id = ?";
-                                        $stmt2 = $conn->prepare($query2);
-                                        $stmt2->bind_param("i", $data["item_id"]);
-                                        $stmt2->execute();
-                                        $result2 = $stmt2->get_result();
-                                        $data2 = $result2->fetch_assoc();
-                                    ?>
-                                    <div class="modal-dialog modal-dialog-centered modal-md">
-                                        <div class="modal-content shadow-lg border-0 rounded-3">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header bg-info text-white rounded-top-3">
-                                                <h5 class="modal-title fw-bold" id="exampleModalLabel">Delivery Rider Details</h5>
-                                                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
-                                            </div>
+                                <?php 
+                                    if($data["status_id"] == 2){
+                                ?>
+                                    <div class="modal fade" id="exampleModal<?php echo $data["item_id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <?php 
+                                            $query2 = "SELECT tr.*, tc.order_remarks FROM tbl_rider_details tr
+                                            JOIN tbl_cart tc ON tr.item_id = tc.item_id
+                                             WHERE tc.item_id = ?";
+                                            $stmt2 = $conn->prepare($query2);
+                                            $stmt2->bind_param("i", $data["item_id"]);
+                                            $stmt2->execute();
+                                            $result2 = $stmt2->get_result();
+                                            $data2 = $result2->fetch_assoc();
+                                        ?>
+                                        <div class="modal-dialog modal-dialog-centered modal-md">
+                                            <div class="modal-content shadow-lg border-0 rounded-3">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header bg-info text-white rounded-top-3">
+                                                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Delivery Rider Details</h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                                                </div>
 
-                                            <!-- Modal Body -->
-                                            <div class="modal-body px-4 py-5">
-                                                <div class="row">
-                                                    <!-- Rider Name -->
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="riderName" class="form-label">Rider Name</label>
-                                                        <input type="text" disabled class="form-control" value="<?php echo $data2["rider_name"] ?>">
-                                                    </div>
-                                                    <!-- Rider Contact -->
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="riderContact" class="form-label">Contact</label>
-                                                        <input type="text" disabled class="form-control" value="<?php echo $data2["rider_contact"] ?>">
-                                                    </div>
-                                                    <!-- Address -->
-                                                    <div class="col-12">
-                                                        <label for="riderRemarks" class="form-label">Remarks</label>
-                                                        <textarea id="remarks" name="address" class="form-control" rows="5" disabled><?php echo $data2["rider_remarks"] ?></textarea>
+                                                <!-- Modal Body -->
+                                                <div class="modal-body px-4 py-5">
+                                                    <div class="row">
+                                                        <!-- Rider Name -->
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="riderName" class="form-label">Rider Name</label>
+                                                            <input type="text" disabled class="form-control" value="<?php echo $data2["rider_name"] ?>">
+                                                        </div>
+                                                        <!-- Rider Contact -->
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="riderContact" class="form-label">Contact</label>
+                                                            <input type="text" disabled class="form-control" value="<?php echo $data2["rider_contact"] ?>">
+                                                        </div>
+                                                        <!-- Address -->
+                                                        <div class="col-12">
+                                                            <label for="riderRemarks" class="form-label">Rider Remarks</label>
+                                                            <textarea id="remarks" name="address" class="form-control" rows="5" disabled><?php echo $data2["rider_remarks"] ?></textarea>
+                                                        </div>
+
+                                                        <div class="col-12 mt-3">
+                                                            <label for="riderRemarks" class="form-label">Order Remarks</label>
+                                                            <textarea id="remarks" name="address" class="form-control" rows="5" disabled><?php echo $data2["order_remarks"] ?></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
 
-                                            <!-- Modal Footer -->
-                                            <div class="modal-footer bg-light rounded-bottom-3">
-                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer bg-light rounded-bottom-3">
+                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php }else{ ?>
+                                    <div class="modal fade" id="exampleModal<?php echo $data["item_id"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-md">
+                                            <div class="modal-content shadow-lg border-0 rounded-3">
+                                                <!-- Modal Header -->
+                                                <div class="modal-header bg-info text-white rounded-top-3">
+                                                    <h5 class="modal-title fw-bold" id="exampleModalLabel">Cancel Remarks</h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+
+                                                <!-- Modal Body -->
+                                                <div class="modal-body px-4 py-5">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <label for="riderRemarks" class="form-label">Canceled Remarks</label>
+                                                            <textarea id="remarks" name="address" class="form-control" rows="5" disabled><?php echo $data["cancel_remarks"] ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer bg-light rounded-bottom-3">
+                                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
 
 
                                 <?php } ?>

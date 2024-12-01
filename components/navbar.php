@@ -18,10 +18,27 @@
 
       <div class="right">
           <a href="./Menus.php"><div class="prod">Shop</div></a>
-          <a href="./cart.php">Cart</i></a>
-          <a href="./ProcessOrders.php">Orders</a>
           <?php if(!empty($_SESSION["user_id"])){ 
-                $query = "SELECT COUNT(*) AS CountItems FROM tbl_cart WHERE status_id = 4 and account_id = ?;";
+                $query = "SELECT COUNT(*) AS cartCount FROM tbl_cart WHERE status_id = 1 and account_id = ?;";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("i", $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $data = $result->fetch_assoc();
+            ?>
+            <a href="./cart.php">
+                <div class="count-div">
+                    Cart
+                    <div class="count">
+                        <?php echo $data["cartCount"]; ?>
+                    </div>
+                </div>
+            </a>
+            <?php }else{
+                echo '<a href="./login.php"><div class="prod">Cart</div></a>';
+            } ?>
+          <?php if(!empty($_SESSION["user_id"])){ 
+                $query = "SELECT COUNT(*) AS CountItems FROM tbl_cart WHERE status_id IN (3, 4) and account_id = ?;";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param("i", $_SESSION["user_id"]);
                 $stmt->execute();
@@ -29,9 +46,9 @@
                 $data = $result->fetch_assoc();
             ?>
                 
-            <a href="./cart.php">
+            <a href="./ProcessOrders.php">
                 <div class="count-div">
-                    <i class="fa-solid fa-bell"></i>
+                    Orders
                     <div class="count">
                         <?php echo $data["CountItems"]; ?>
                     </div>

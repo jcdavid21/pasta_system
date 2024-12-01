@@ -83,156 +83,152 @@ $('.add-btn').on('click', function() {
 
 
     $('.proceed-btn').on('click', function() {
+    const receiptFile = $('#receiptFile')[0].files[0];
+    const refNumber = $("#refNumber").val().trim();
+    const depositAmnt = $("#depAmount").val().trim();
+    const totalAmnt = $("#overAllTotal").val().trim().replace("₱", "").replace(",", "");
+    const claimDate = $("#claimDate").val().trim();
+    const remarks = $("#remarks").val().trim();
+    const current_date = new Date();
     
-        const receiptFile = $('#receiptFile')[0].files[0];
-        const refNumber = $("#refNumber").val().trim();
-        const depositAmnt = $("#depAmount").val().trim();
-        const totalAmnt = $("#overAllTotal").val().trim().replace("₱", "").replace(",", "");
-        const claimDate = $("#claimDate").val().trim();
-        const current_date = new Date();
-
-        if(new Date(claimDate) < current_date){
-            Swal.fire({
-                title: "Invalid claim date",
-                text: "Please select a valid claim date.",
-                
-                showConfirmButton: true,
-            });
-            return;
-        }
-
-        // Check if the receipt file is uploaded
-        if (!receiptFile) {
-            Swal.fire({
-                title: "Please upload your receipt",
-                
-                showConfirmButton: true,
-            });
-            return;
-        }
-        
-        const allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'webp'];
-        const fileExtension = receiptFile.name.split('.').pop().toLowerCase();
-        
-        // Validate file extension
-        if (!allowedExtensions.includes(fileExtension)) {
-            Swal.fire({
-                title: "Invalid file type",
-                text: "Please upload a file with one of the following extensions: jpg, jpeg, png, svg, webp",
-                
-                showConfirmButton: true,
-            });
-            return;
-        }
-        
-        // Validate reference number input
-        if (!refNumber) {
-            Swal.fire({
-                title: "Please enter your reference number.",
-                
-                showConfirmButton: true,
-            });
-            return;
-        }
-
-        if(refNumber.length < 13){
-            Swal.fire({
-                title: "Invalid reference number",
-                text: "Reference number must be 13 characters long.",
-                
-                showConfirmButton: true,
-            });
-            return;
-        }
+    // Calculate the date two weeks from now
+    const twoWeeksFromNow = new Date();
+    twoWeeksFromNow.setDate(current_date.getDate() + 14);
     
-        // Validate deposit amount input
-        if (!depositAmnt || isNaN(depositAmnt) || parseFloat(depositAmnt) <= 0) {
-            Swal.fire({
-                title: "Please enter a valid deposit amount.",
-                
-                showConfirmButton: true,
-            });
-            return;
-        }
-
-        console.log(totalAmnt);
-
-        if(parseFloat(totalAmnt) !== parseFloat(depositAmnt)){
-            Swal.fire({
-                title: "Invalid deposit amount",
-                text: "Please complete the total amount.",
-                
-                showConfirmButton: true,
-            });
-            return;
-        }
-
-        if(!claimDate){
-            Swal.fire({
-                title: "Please select a claim date.",
-                showConfirmButton: true,
-            });
-            return;
-        }
-        
-        // Confirm pickup action
+    // Check if claim date is less than two weeks from now
+    if (new Date(claimDate) < twoWeeksFromNow) {
         Swal.fire({
-            title: "Proceed now?",
-            text: "This will proceed your order.",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, proceed!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                let formData = new FormData();
-                formData.append('receipt', receiptFile);
-                formData.append('refNumber', refNumber);
-                formData.append('depositAmount', depositAmnt);
-                formData.append("claimDate", claimDate);
+            title: "Invalid claim date",
+            text: "Please select a claim date at least two weeks from today.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    // Check if the receipt file is uploaded
+    if (!receiptFile) {
+        Swal.fire({
+            title: "Please upload your receipt",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'webp'];
+    const fileExtension = receiptFile.name.split('.').pop().toLowerCase();
     
-                $.ajax({ 
-                    url: "../backend/user/proceed.php",
-                    method: "post",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        if (response === 'success') {
-                            window.location.reload();
-                        } else if(response === "stocks"){
-                            Swal.fire({
-                                title: "Invalid stocks!",
-                                text: "Deleted items due to insufficient stocks.",
-                                
-                                showConfirmButton: true,
-                            }).then((result)=>{
-                                if(result.isConfirmed){
-                                    window.location.reload();
-                                }
-                            }
-                            )
-                        }else {
-                            Swal.fire({
-                                title: "Update error",
-                                text: response,
-                                
-                                showConfirmButton: true,
-                            });
-                        }
-                    },
-                    error: function() {
+    // Validate file extension
+    if (!allowedExtensions.includes(fileExtension)) {
+        Swal.fire({
+            title: "Invalid file type",
+            text: "Please upload a file with one of the following extensions: jpg, jpeg, png, svg, webp",
+            showConfirmButton: true,
+        });
+        return;
+    }
+    
+    // Validate reference number input
+    if (!refNumber) {
+        Swal.fire({
+            title: "Please enter your reference number.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    if(refNumber.length < 13){
+        Swal.fire({
+            title: "Invalid reference number",
+            text: "Reference number must be 13 characters long.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    // Validate deposit amount input
+    if (!depositAmnt || isNaN(depositAmnt) || parseFloat(depositAmnt) <= 0) {
+        Swal.fire({
+            title: "Please enter a valid deposit amount.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    console.log(totalAmnt);
+
+    if(parseFloat(totalAmnt) !== parseFloat(depositAmnt)){
+        Swal.fire({
+            title: "Invalid deposit amount",
+            text: "Please complete the total amount.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    if(!claimDate){
+        Swal.fire({
+            title: "Please select a claim date.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    // Confirm pickup action
+    Swal.fire({
+        title: "Proceed now?",
+        text: "This will proceed your order.",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, proceed!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let formData = new FormData();
+            formData.append('receipt', receiptFile);
+            formData.append('refNumber', refNumber);
+            formData.append('depositAmount', depositAmnt);
+            formData.append("claimDate", claimDate);
+            formData.append("remarks", remarks);
+
+            $.ajax({ 
+                url: "../backend/user/proceed.php",
+                method: "post",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response === 'success') {
+                        window.location.reload();
+                    } else if(response === "stocks"){
                         Swal.fire({
-                            title: "Connection Error!",
-                            text: "Could not connect to the server.",
-                            
+                            title: "Invalid stocks!",
+                            text: "Deleted items due to insufficient stocks.",
+                            showConfirmButton: true,
+                        }).then((result)=>{
+                            if(result.isConfirmed){
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Update error",
+                            text: response,
                             showConfirmButton: true,
                         });
                     }
-                });
-            }
-        });
+                },
+                error: function() {
+                    Swal.fire({
+                        title: "Connection Error!",
+                        text: "Could not connect to the server.",
+                        showConfirmButton: true,
+                    });
+                }
+            });
+        }
     });
+});
+
     
     
 })

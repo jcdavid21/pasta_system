@@ -74,7 +74,9 @@ require_once("../backend/config/config.php");
                                             <th>Price</th>
                                             <th>Size</th>
                                             <th>Quantity</th>
-                                            <th>Type</th>
+                                            <th>Date to Pick up</th>
+                                            <th>Address</th>
+                                            <th>Total</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -85,7 +87,9 @@ require_once("../backend/config/config.php");
                                             <th>Price</th>
                                             <th>Size</th>
                                             <th>Quantity</th>
-                                            <th>Type</th>
+                                            <th>Date to Pick up</th>
+                                            <th>Address</th>
+                                            <th>Total</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -100,6 +104,8 @@ require_once("../backend/config/config.php");
                                           tc.status_id,
                                           tp.prod_name, 
                                           tc.prod_size,
+                                          tc.order_date,
+                                          tc.claim_date,
                                           CASE 
                                               WHEN tc.prod_size = 'small' THEN tp.prod_price_small
                                               WHEN tc.prod_size = 'medium' THEN tp.prod_price_medium
@@ -125,6 +131,7 @@ require_once("../backend/config/config.php");
 
                             while ($data = $result->fetch_assoc()) {
                                 $total = $data['prod_price'] * $data['prod_qnty'];
+                                $formatted_date = date("F j, Y", strtotime($data['claim_date']));
                                 $prod_size = array(
                                   "small" => "12",
                                   "medium" => "14",
@@ -137,7 +144,9 @@ require_once("../backend/config/config.php");
                         <td>₱<?php echo number_format($data['prod_price'], 2); ?></td>
                         <td><?php echo $prod_size[$data['prod_size']]; ?>"</td>
                         <td><?php echo htmlspecialchars($data['prod_qnty']); ?></td>
-                        <td><?php echo htmlspecialchars($data['prod_type_name']); ?></td>
+                        <td><?php echo htmlspecialchars($formatted_date); ?></td>
+                        <td><?php echo htmlspecialchars($data['address']); ?></td>
+                        <td>₱<?php echo number_format($total, 2); ?></td>
                         <td>
                             <button type="button" class="btn btn-primary" id="<?php echo htmlspecialchars($data['item_id']); ?>" 
                             data-bs-toggle="modal" data-bs-target="#productDetails<?php echo htmlspecialchars($data['item_id']); ?>" 
@@ -159,11 +168,11 @@ require_once("../backend/config/config.php");
                             if($status_id == 3 || $status_id == 4) {
                         ?>
         
-                          <button type="button" class="btn btn-danger delete-js" id="<?php echo htmlspecialchars($data['item_id']); ?>"
-                          style="font-size: 12px;">
+                          <button type="button" class="btn btn-danger delete-js" id="cancel<?php echo htmlspecialchars($data['item_id']); ?>"
+                          style="font-size: 12px;" data-bs-toggle="modal" data-bs-target="#cancelRemarksModal"
+                          data-item-id="<?php echo htmlspecialchars($data['item_id']); ?>">
                             Cancel
                           </button>
-
                         </td>
                         <?php
                         } ?>
@@ -184,14 +193,14 @@ require_once("../backend/config/config.php");
                                     <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['full_name']); ?>" disabled>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                    <label class="col-form-label">Customer Address</label>
-                                    <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['address']); ?>" disabled>
+                                    <label class="col-form-label">Customer Contact</label>
+                                    <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['contact']); ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-12">
-                                <label class="col-form-label">Customer Contact</label>
-                                <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['contact']); ?>" disabled>
-                                </div>
+                                    <label class="col-form-label">Customer Address</label>
+                                    <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['address']); ?>" disabled>
+                                    </div>
                                 <div class="d-flex">
                                 
                                     <div class="mb-3 col-md-12">
@@ -201,64 +210,18 @@ require_once("../backend/config/config.php");
                                 </div>
                                 <div class="d-flex">
                                     <div class="mb-3 col-md-6">
-                                    <label class="col-form-label">Order Price</label>
-                                    <input type="text" class="form-control updatedPrice" value="₱<?php echo number_format($data['prod_price'], 2); ?>" disabled>
+                                      <label class="col-form-label">Order Price</label>
+                                      <input type="text" class="form-control updatedPrice" value="₱<?php echo number_format($data['prod_price'], 2); ?>" disabled>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                    <label class="col-form-label">Total</label>
-                                    <input type="text" class="form-control updatedPrice" value="₱<?php echo number_format($total, 2); ?>" disabled>
-                                    </div>
-                                </div>
-                              </form>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Modal for product details -->
-                      <div class="modal fade" id="driverDetails<?php echo htmlspecialchars($data['item_id']); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <form method="post">
-                                <div class="d-flex">
-                                    <div class="mb-3 col-md-6">
-                                    <label class="col-form-label">Customer Name</label>
-                                    <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['full_name']); ?>" disabled>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                    <label class="col-form-label">Customer Address</label>
-                                    <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['address']); ?>" disabled>
+                                      <label class="col-form-label">Order Quantity</label>
+                                      <input type="text" class="form-control updatedPrice" value="<?php echo htmlspecialchars($data['prod_qnty']); ?>" disabled>
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-12">
-                                <label class="col-form-label">Customer Contact</label>
-                                <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['contact']); ?>" disabled>
-                                </div>
-                                <div class="d-flex">
-                                
-                                    <div class="mb-3 col-md-12">
-                                    <label class="col-form-label">Order Name</label>
-                                    <input type="text" class="form-control updatedName" value="<?php echo htmlspecialchars($data['prod_name']); ?>" disabled>
-                                    </div>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="mb-3 col-md-6">
-                                    <label class="col-form-label">Order Price</label>
-                                    <input type="text" class="form-control updatedPrice" value="₱<?php echo number_format($data['prod_price'], 2); ?>" disabled>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
                                     <label class="col-form-label">Total</label>
                                     <input type="text" class="form-control updatedPrice" value="₱<?php echo number_format($total, 2); ?>" disabled>
                                     </div>
-                                </div>
                               </form>
                             </div>
                             <div class="modal-footer">
@@ -267,6 +230,8 @@ require_once("../backend/config/config.php");
                           </div>
                         </div>
                       </div>
+                        
+                      
                     <?php
                     } // end while
                     ?>
@@ -281,6 +246,31 @@ require_once("../backend/config/config.php");
 
             </div>
             <!-- End of Main Content -->
+
+            <!-- Cancel Remarks Modal -->
+<div class="modal fade" id="cancelRemarksModal" tabindex="-1" aria-labelledby="cancelRemarksLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cancelRemarksLabel">Cancel Order Remarks</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="cancelOrderForm">
+          <input type="hidden" id="cancelItemId" name="item_id">
+          <div class="mb-3">
+            <label for="cancelRemarks" class="form-label">Remarks</label>
+            <textarea class="form-control" id="cancelRemarks" name="cancel_remarks" rows="3" required></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="confirmCancel">Cancel Order</button>
+      </div>
+    </div>
+  </div>
+</div>
 
             
 
@@ -326,8 +316,8 @@ require_once("../backend/config/config.php");
     <!-- Page level custom scripts -->
     <script src="../js/demo/datatables-demo.js"></script>
     <script src="../jquery/updatePending.js"></script>
+    <script src="../jquery/AdminCancel.js"></script>
     <script src="../jquery/sideBarProd.js"></script>
-    <script src="../jquery/cancelOrder.js"></script>
     <script src="../scripts/toggle.js"></script>
 
   </body>

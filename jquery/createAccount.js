@@ -10,7 +10,7 @@ $(document).ready(() => {
         const address = $('#address').val();
         const username = $('#uname').val();
         const password = $('#password').val();
-        const role_id = $('#selectRole').val();
+        const confirmPassword = $('#confirmPass').val();
 
         // Validation functions
         function validateEmail(email) {
@@ -23,12 +23,16 @@ $(document).ready(() => {
             return passwordPattern.test(password);
         }
 
+        function validateConfirmPassword(password, confirmPassword) {
+            return password === confirmPassword;
+        }
+
         function validateContactNo(contactNo) {
             const contactPattern = /^09\d{9}$/;
             return contactPattern.test(contactNo);
         }
 
-        if (gender && fname && lname && email && contactNo && address && username && password && role_id) {
+        if (gender && fname && lname && email && contactNo && address && username && password) {
             if (!validatePassword(password)) {
                 Swal.fire({
                     title: "Invalid Password!",
@@ -56,6 +60,15 @@ $(document).ready(() => {
                 return;
             }
 
+            if (!validateConfirmPassword(password, confirmPassword)) {
+                Swal.fire({
+                    title: "Password Mismatch!",
+                    text: "Passwords do not match.",
+                    
+                });
+                return;
+            }
+
             const data = {
                 gender,
                 fname,
@@ -66,7 +79,6 @@ $(document).ready(() => {
                 address,
                 username,
                 password,
-                role_id
             };
 
             $.ajax({

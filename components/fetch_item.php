@@ -11,6 +11,20 @@
     <script src="../scripts/sweetalert2.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <title>Item</title>
+    <style>
+    /* Remove arrows for Chrome, Safari, Edge, and Opera */
+    input[type="number"]::-webkit-inner-spin-button, 
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Remove arrows for Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style>
+
 </head>
 <body>
 <?php 
@@ -39,6 +53,12 @@ if(isset($_GET["type"])){
             <?php if (!empty($products)) { ?>
             <div class="center">
                 <div class="content">
+                    <div class="header-con">
+                        <a href="#" id="back">
+                            <i class="fa-solid fa-circle-left" style="font-size: 32px; padding-bottom: 12px;
+                            margin-bottom: 20px;"></i>
+                        </a>
+                    </div>
                     <div class="grid">
                         <div class="img-con">
                             <img src="../assets/products/<?php echo $path; ?>" alt="">
@@ -138,7 +158,19 @@ if(isset($_GET["type"])){
                                     
                                     <!-- Submit Button -->
                                     <div class="form-group">
-                                        <button class="button" data-prod-id="<?php echo $_GET["type"] ?>">Submit Feedback</button>
+                                        <?php 
+                                            if(!empty($_SESSION["user_id"])){
+                                                $query = "SELECT * FROM tbl_cart WHERE account_id = ? AND prod_id = ? AND status_id = 2";
+                                                $stmt = $conn->prepare($query);
+                                                $stmt->bind_param("ii", $_SESSION["user_id"], $_GET["type"]);
+                                                $stmt->execute();
+                                                $result = $stmt->get_result();
+                                                if($result->num_rows > 0){
+                                        ?>
+                                        <button type="submit" class="submit-feedback" data-prod-id="<?php echo $_GET["type"] ?>">Submit</button>
+                                        <?php }else{ ?>
+                                        <p>You must have purchased this item to submit feedback.</p>
+                                        <?php }} ?>
                                     </div>
                                 </form>
                             </div>
@@ -226,6 +258,10 @@ if(isset($_GET["type"])){
         if (quantity > 1) {
             $('#quantity').val(quantity - 1);
         }
+    });
+
+    $('#back').click(function() {
+        window.history.back();
     });
 </script>
 <script src="../jquery/submitFeedback.js"></script>

@@ -1,14 +1,26 @@
 $(document).ready(()=>{
     $('#submit').on('click', function(e){
-        const email = $('#email').val();
+        e.preventDefault();
+        const username = $('#username').val();
         const password = $('#password').val();
+        const confirmPassword = $('#confirmPassword').val();
+
+        if(password !== confirmPassword){
+            Swal.fire({
+                title: "Password Mismatch",
+                text: "Password does not match",
+                showConfirmButton: false,
+                timer: 2000
+                });
+            return;
+        }
         
-        if(email && password){
+        if(username && password){
             $.ajax({
                 url: "../backend/user/newPassword.php",
                 method: "post",
                 data:{
-                    email,
+                    username,
                     password
                 },
                 success: function(response){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2024 at 03:58 PM
+-- Generation Time: Dec 01, 2024 at 08:51 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -41,16 +41,17 @@ CREATE TABLE `tbl_account` (
 --
 
 INSERT INTO `tbl_account` (`account_id`, `ac_username`, `ac_email`, `ac_password`, `role_id`, `account_status_id`) VALUES
-(1, 'jcdavid', 'jcdavid@gmail.com', '$2y$10$iAp34p.CeIZRqYDlgM.AOuFM7Q2d2uifCpbl14xbsnptXoiRozEqy', 1, 1),
+(1, 'jcdavid', 'jcdavid@gmail.com', '$2y$10$y6w0SL2woRHiuQ4rniKMrewKIcajYOQXtUV1XqeizStrKmN5Pq27q', 1, 1),
 (2, 'golden', 'golden@gmail.com', '$2y$10$92lKJT/9e9JSzuGmEZ1N8.cPldvOQexUuU2k97F5GykS0rP4l5tqq', 1, 1),
 (3, 'john erick', 'johnerick@gmail.com', '$2y$10$OZIIZnjXfRrVNX5G389R3.emX0dGaTb35PIQAbOqKhEB6qYWnoAuC', 2, 1),
 (4, 'lugo', 'lugo@gmail.com', '$2y$10$m5gg4RhBizZnqOJXR6IFIemRMw/0bex4eY4mxCNpgys2aQDRr.auq', 2, 1),
 (6, 'admin', 'sarah@gmail.com', '$2y$10$t3.cWIceqWE/cDo9lNYXAuK2fSFiRplX6QHlbuTR8TlGJU1cRtkA6', 2, 1),
-(7, 'jose', 'cashier@gmail.com', '$2y$10$oxj3kjSVZEBHBEFS5EkT8OgwTkRezxKytLTgdov6Vs8qhCmOPPe9K', 3, 1),
-(8, 'jhyra', 'cashier2@gmail.com', '$2y$10$kxW2vsZVDHzuZg.oHujg7OQUWUrr77JZ9tDMhY1GYojPNliEi3cnC', 3, 1),
+(7, 'jose', 'cashier@gmail.com', '$2y$10$oxj3kjSVZEBHBEFS5EkT8OgwTkRezxKytLTgdov6Vs8qhCmOPPe9K', 2, 1),
+(8, 'jhyra', 'cashier2@gmail.com', '$2y$10$kxW2vsZVDHzuZg.oHujg7OQUWUrr77JZ9tDMhY1GYojPNliEi3cnC', 2, 1),
 (9, 'lugs', 'lugs@gmail.com', '$2y$10$Sgyb8CATbHXkScwxoZmHtOMypd5SCn/fB1jgZ/elykNOe02fN/X0m', 1, 1),
-(10, 'user', 'jc.david@gmail.com', '$2y$10$nyGPsjX/.61ru7G2mZBrguQXH4/Kca7Y/T1UYioBVbxmAosIEAMHS', 1, 1),
-(12, 'lugolulu', 'lugo1@gmail.com', '$2y$10$Pt1K6WUN3iQGlXB7uRqU1Ox6FR.MUc4PKYH6HtPCr4ZRzfNJ1hA4e', 1, 1);
+(10, 'user', 'jc.david@gmail.com', '$2y$10$eKvm9s4xRRAbAG4y56SMSu7azbQi9.Qk5gNnFpIBA5QlTF1qof1vO', 1, 1),
+(12, 'lugolulu', 'lugo1@gmail.com', '$2y$10$Pt1K6WUN3iQGlXB7uRqU1Ox6FR.MUc4PKYH6HtPCr4ZRzfNJ1hA4e', 1, 1),
+(13, 'admin2', 'admin2@gmail.com', '$2y$10$qL6T6wxFLrgDbjE5nOwAfOpM63z6aDGHjzRS9cau.e1quB/VKswUC', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,8 @@ INSERT INTO `tbl_account_details` (`account_id`, `first_name`, `middle_name`, `l
 (8, 'jhy', '', 'mariano', '09512847442', 'Female', 'Bayan Glori'),
 (9, 'Christian', '', 'Lugo', '09565535401', 'Male', 'Bayan Glori'),
 (10, 'Juan Carlo', 'Domingo', 'David', '09565535401', 'Male', 'Montecillo subd'),
-(12, 'Christian', '', 'Lugo', '09565535401', 'on', 'Montecillo subd');
+(12, 'Christian', '', 'Lugo', '09565535401', 'on', 'Montecillo subd'),
+(13, 'Josh', '', 'Ivan', '09565535401', 'Male', 'Bayan');
 
 -- --------------------------------------------------------
 
@@ -121,32 +123,7 @@ CREATE TABLE `tbl_audit_log` (
 --
 
 INSERT INTO `tbl_audit_log` (`log_user_id`, `log_username`, `log_user_type`, `log_date`) VALUES
-(2, 'golden', '1', '2024-10-23 07:32:54'),
-(7, 'juan', '3', '2024-10-23 07:34:41'),
-(6, 'admin', '2', '2024-10-23 07:35:16'),
-(7, 'juan', '3', '2024-10-23 07:46:18'),
-(6, 'admin', '2', '2024-10-23 07:46:32'),
-(1, 'jcdavid', '1', '2024-11-14 09:37:48'),
-(12, 'lugolulu', '1', '2024-11-14 09:39:49'),
-(6, 'admin', '2', '2024-11-18 11:35:35'),
-(6, 'admin', '2', '2024-11-19 08:18:58'),
-(1, 'jcdavid', '1', '2024-11-19 09:22:13'),
-(1, 'jcdavid', '1', '2024-11-26 07:06:50'),
-(6, 'admin', '2', '2024-11-26 10:31:14'),
-(6, 'admin', '2', '2024-11-26 10:34:28'),
-(6, 'admin', '2', '2024-11-26 11:26:28'),
-(6, 'admin', '2', '2024-11-26 13:01:02'),
-(1, 'jcdavid', '1', '2024-11-26 13:17:57'),
-(6, 'admin', '2', '2024-11-26 13:19:35'),
-(6, 'admin', '2', '2024-11-26 13:24:53'),
-(1, 'jcdavid', '1', '2024-11-26 13:57:17'),
-(6, 'admin', '2', '2024-11-26 13:57:35'),
-(1, 'jcdavid', '1', '2024-11-26 13:59:39'),
-(6, 'admin', '2', '2024-11-26 13:59:51'),
-(1, 'jcdavid', '1', '2024-11-26 14:04:04'),
-(6, 'admin', '2', '2024-11-26 14:04:58'),
-(6, 'admin', '2', '2024-11-26 14:31:56'),
-(1, 'jcdavid', '1', '2024-11-26 14:39:01');
+(6, 'admin', '2', '2024-12-01 07:41:48');
 
 -- --------------------------------------------------------
 
@@ -162,63 +139,6 @@ CREATE TABLE `tbl_audit_trail` (
   `trail_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_audit_trail`
---
-
-INSERT INTO `tbl_audit_trail` (`trail_user_id`, `trail_username`, `trail_activity`, `trail_user_type`, `trail_date`) VALUES
-(6, 'admin', 'Updated Product', 'Admin', '2024-09-30 10:52:49'),
-(6, 'admin', 'Updated Product', 'Admin', '2024-09-30 10:53:53'),
-(6, 'admin', 'Updated Product ID: 2', 'Admin', '2024-09-30 11:04:10'),
-(6, 'admin', 'Updated Product ID: 13', 'Admin', '2024-10-11 12:16:21'),
-(6, 'admin', 'Updated Product ID: 13', 'Admin', '2024-10-11 12:16:47'),
-(6, 'admin', 'Updated Product ID: 13', 'Admin', '2024-10-11 12:16:51'),
-(6, 'admin', 'Updated Product ID: 23', 'Admin', '2024-10-23 07:32:40'),
-(6, 'admin', 'Updated Product ID: 23', 'Admin', '2024-11-19 09:15:15'),
-(6, 'admin', 'Updated Product ID: 23', 'Admin', '2024-11-19 09:15:22'),
-(6, 'admin', 'Updated Product ID: 23', 'Admin', '2024-11-19 09:15:31'),
-(6, 'admin', 'Updated Product ID: 2', 'Admin', '2024-11-26 12:32:37'),
-(6, 'admin', 'Updated Product ID: 2', 'Admin', '2024-11-26 12:33:16'),
-(6, 'admin', 'Updated Product ID: 2', 'Admin', '2024-11-26 12:33:37'),
-(6, 'admin', 'Updated Product ID: 2', 'Admin', '2024-11-26 12:33:39'),
-(6, 'admin', 'Updated Product ID: 1', 'Admin', '2024-11-26 12:34:40'),
-(6, 'admin', 'Updated Product ID: 1', 'Admin', '2024-11-26 12:34:46'),
-(6, 'admin', 'Updated Product ID: 1', 'Admin', '2024-11-26 12:35:09'),
-(6, 'admin', 'Updated Product ID: 4', 'Admin', '2024-11-26 12:35:35'),
-(6, 'admin', 'Updated Product ID: 4', 'Admin', '2024-11-26 12:35:49'),
-(6, 'admin', 'Deleted Product ID: 7', 'Admin', '2024-11-26 12:51:42'),
-(6, 'admin', 'Updated Driver Details for Item ID: 21', 'Admin', '2024-11-26 13:58:55'),
-(6, 'admin', 'Updated Driver Details for Item ID: 23', 'Admin', '2024-11-26 14:05:14'),
-(6, 'admin', 'Deactivated Account ID: 2', 'Admin', '2024-11-26 14:06:03'),
-(6, 'admin', 'Reactivated Account ID: 2', 'Admin', '2024-11-26 14:06:10'),
-(6, 'admin', 'Updated Product ID: 1', 'Admin', '2024-11-26 14:06:33');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_best_seller`
---
-
-CREATE TABLE `tbl_best_seller` (
-  `prod_id` int(11) NOT NULL,
-  `prod_name` varchar(255) NOT NULL,
-  `prod_price` int(11) NOT NULL,
-  `prod_type` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  `prod_stocks` int(11) NOT NULL,
-  `prod_img` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_best_seller`
---
-
-INSERT INTO `tbl_best_seller` (`prod_id`, `prod_name`, `prod_price`, `prod_type`, `group_id`, `prod_stocks`, `prod_img`) VALUES
-(6, 'SEVENTEEN - SEVENTEEN BEST ALBUM [17 IS RIGHT HERE] Weverse Albums Ver.', 635, 1, 4, 10, 'album-5.jpg'),
-(8, 'Stray Kids - 5-STAR The 3rd Album [Standard Edition]', 880, 1, 2, 10, 'album-7.JPG'),
-(13, 'BTS JIMIN - GQ Korea Magazine Cover JIMIN (Nov 2023)', 700, 1, 1, 10, 'album-12.jpg'),
-(14, '(+YG POB) JISOO - ME PHOTOBOOK [Special Edition]', 2600, 1, 10, 10, 'album-14.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -233,6 +153,8 @@ CREATE TABLE `tbl_cart` (
   `order_date` date DEFAULT NULL,
   `claim_date` date DEFAULT NULL,
   `status_id` int(11) NOT NULL DEFAULT 1,
+  `order_remarks` varchar(255) DEFAULT 'No remarks',
+  `cancel_remarks` varchar(255) DEFAULT 'No remarks',
   `account_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -240,8 +162,9 @@ CREATE TABLE `tbl_cart` (
 -- Dumping data for table `tbl_cart`
 --
 
-INSERT INTO `tbl_cart` (`item_id`, `prod_id`, `prod_qnty`, `prod_size`, `order_date`, `claim_date`, `status_id`, `account_id`) VALUES
-(23, 3, 2, 'medium', '2024-11-26', '2024-11-30', 2, 1);
+INSERT INTO `tbl_cart` (`item_id`, `prod_id`, `prod_qnty`, `prod_size`, `order_date`, `claim_date`, `status_id`, `order_remarks`, `cancel_remarks`, `account_id`) VALUES
+(27, 1, 1, 'large', '2024-12-01', '2024-12-16', 3, 'No remarks', 'No remarks', 1),
+(28, 5, 2, 'large', '2024-12-01', '2024-12-16', 3, 'No order remarks', 'No remarks', 1);
 
 -- --------------------------------------------------------
 
@@ -256,13 +179,6 @@ CREATE TABLE `tbl_item_feedback` (
   `fd_date` date NOT NULL,
   `account_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_item_feedback`
---
-
-INSERT INTO `tbl_item_feedback` (`fd_id`, `prod_id`, `fd_comment`, `fd_date`, `account_id`) VALUES
-(2, 2, 'Sarap ugh', '2024-11-26', 1);
 
 -- --------------------------------------------------------
 
@@ -352,9 +268,8 @@ CREATE TABLE `tbl_receipt` (
 --
 
 INSERT INTO `tbl_receipt` (`receipt_id`, `account_id`, `receipt_img`, `receipt_number`, `deposit_amount`, `uploaded_date`) VALUES
-(30, 1, '674598a684340.jpeg', '2134214213111', 800, '2024-11-26'),
-(31, 1, '67459c2b3167c.jpeg', '3212313131313', 1000, '2024-11-26'),
-(32, 1, '6745d56ea2eea.jpeg', '2134214213111', 1400, '2024-11-26');
+(35, 1, '674c11548549b.jpeg', '3212313131313', 800, '2024-12-01'),
+(36, 1, '674c11de415cb.jpeg', '3212313131313', 1600, '2024-12-01');
 
 -- --------------------------------------------------------
 
@@ -386,17 +301,10 @@ INSERT INTO `tbl_reports` (`report_id`, `rp_name`, `rp_email`, `rp_message`) VAL
 CREATE TABLE `tbl_rider_details` (
   `rider_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `rider_name` varchar(255) NOT NULL,
-  `rider_contact` varchar(50) NOT NULL,
-  `rider_remarks` varchar(255) DEFAULT NULL
+  `rider_name` varchar(255) DEFAULT 'No rider name yet',
+  `rider_contact` varchar(50) DEFAULT 'No contact yet',
+  `rider_remarks` varchar(255) DEFAULT 'No remarks'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_rider_details`
---
-
-INSERT INTO `tbl_rider_details` (`rider_id`, `item_id`, `rider_name`, `rider_contact`, `rider_remarks`) VALUES
-(3, 23, 'Juan David', '09565535401', 'None');
 
 -- --------------------------------------------------------
 
@@ -457,21 +365,6 @@ CREATE TABLE `tbl_transactions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbl_transactions`
---
-
-INSERT INTO `tbl_transactions` (`user_id`, `user_name`, `user_type`, `user_activity`, `activity_date`, `item_id`) VALUES
-(7, 'juan', '3', 'Claimed item ', '2024-10-11', 10),
-(7, 'juan', '3', 'Claimed item ', '2024-10-11', 11),
-(7, 'juan', '3', 'Claimed item ', '2024-10-23', 14),
-(7, 'juan', '3', 'Claimed item ', '2024-10-23', 14),
-(7, 'juan', '3', 'Claimed item ', '2024-10-23', 14),
-(7, 'juan', '3', 'Claimed item ', '2024-10-23', 14),
-(7, 'juan', '3', 'Claimed item ', '2024-10-23', 17),
-(7, 'juan', '3', 'Claimed item NewJeans - NJ Supernatural Photocard SET 1', '2024-10-23', 17),
-(6, 'admin', '2', 'Claimed item ', '2024-11-26', 23);
-
---
 -- Indexes for dumped tables
 --
 
@@ -486,12 +379,6 @@ ALTER TABLE `tbl_account`
 --
 ALTER TABLE `tbl_account_status`
   ADD PRIMARY KEY (`account_status_id`);
-
---
--- Indexes for table `tbl_best_seller`
---
-ALTER TABLE `tbl_best_seller`
-  ADD PRIMARY KEY (`prod_id`);
 
 --
 -- Indexes for table `tbl_cart`
@@ -561,7 +448,7 @@ ALTER TABLE `tbl_status`
 -- AUTO_INCREMENT for table `tbl_account`
 --
 ALTER TABLE `tbl_account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tbl_account_status`
@@ -570,16 +457,10 @@ ALTER TABLE `tbl_account_status`
   MODIFY `account_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tbl_best_seller`
---
-ALTER TABLE `tbl_best_seller`
-  MODIFY `prod_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tbl_item_feedback`
@@ -609,7 +490,7 @@ ALTER TABLE `tbl_product_type`
 -- AUTO_INCREMENT for table `tbl_receipt`
 --
 ALTER TABLE `tbl_receipt`
-  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tbl_reports`
@@ -621,7 +502,7 @@ ALTER TABLE `tbl_reports`
 -- AUTO_INCREMENT for table `tbl_rider_details`
 --
 ALTER TABLE `tbl_rider_details`
-  MODIFY `rider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `rider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_role`

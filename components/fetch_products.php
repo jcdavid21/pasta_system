@@ -75,6 +75,6 @@ require_once("../backend/config/config.php");
     $('.view-item').click(function() {
         var typeId = $(this).data("item-id");
         const url = `fetch_item.php?type=${typeId}`;
-        window.open(url, "_blank");
+        window.open(url, "_self");
     });
 </script>

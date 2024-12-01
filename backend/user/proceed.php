@@ -29,6 +29,7 @@ if (isset($_SESSION["user_id"])) {
             $ref_number = $_POST["refNumber"];
             $depositAmount = $_POST["depositAmount"];
             $claim_date = $_POST["claimDate"];
+            $order_remarks = $_POST["remarks"] ? $_POST["remarks"] : 'No order remarks';
             $status_id = 3;
             
 
@@ -39,9 +40,9 @@ if (isset($_SESSION["user_id"])) {
 
             if ($stmt->execute()) {
                 // Update the cart status to 'claimed' (status_id = 3)
-                $cartQuery = "UPDATE tbl_cart SET status_id = ?, order_date = ?, claim_date = ? WHERE account_id = ? AND status_id = 1";
+                $cartQuery = "UPDATE tbl_cart SET status_id = ?, order_date = ?, claim_date = ?, order_remarks = ? WHERE account_id = ? AND status_id = 1";
                 $stmt = $conn->prepare($cartQuery);
-                $stmt->bind_param("issi", $status_id, $date, $claim_date, $user_id);
+                $stmt->bind_param("isssi", $status_id, $date, $claim_date, $order_remarks, $user_id);
 
                 if ($stmt->execute()) {
                     echo "success";

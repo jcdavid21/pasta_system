@@ -26,11 +26,28 @@
       </div>
 
       <div class="right">
-      <a href="./components/Menus.php"><div class="prod">Shop</div></a>
-             <a href="./components/cart.php">Cart</i></a>
-             <a href="./components/ProcessOrders.php">Orders</a>
+          <a href="./components/Menus.php"><div class="prod">Shop</div></a>
           <?php if(!empty($_SESSION["user_id"])){ 
-                $query = "SELECT COUNT(*) AS CountItems FROM tbl_cart WHERE status_id = 4 and account_id = ?;";
+                $query = "SELECT COUNT(*) AS cartCount FROM tbl_cart WHERE status_id = 1 and account_id = ?;";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("i", $_SESSION["user_id"]);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $data = $result->fetch_assoc();
+            ?>
+            <a href="./components/cart.php">
+                <div class="count-div">
+                    Cart
+                    <div class="count">
+                        <?php echo $data["cartCount"]; ?>
+                    </div>
+                </div>
+            </a>
+            <?php }else{
+                echo '<a href="./login.php"><div class="prod">Cart</div></a>';
+            } ?>
+          <?php if(!empty($_SESSION["user_id"])){ 
+                $query = "SELECT COUNT(*) AS CountItems FROM tbl_cart WHERE status_id IN (3, 4) and account_id = ?;";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param("i", $_SESSION["user_id"]);
                 $stmt->execute();
@@ -38,9 +55,9 @@
                 $data = $result->fetch_assoc();
             ?>
                 
-            <a href="./components/cart.php">
+            <a href="./components/ProcessOrders.php">
                 <div class="count-div">
-                    <i class="fa-solid fa-bell"></i>
+                    Orders
                     <div class="count">
                         <?php echo $data["CountItems"]; ?>
                     </div>
@@ -51,7 +68,7 @@
 
           <?php if(!empty($_SESSION["user_id"])){ ?>
               <div class="dropdown">
-                  <i class="fa-regular fa-user" onclick="toggleDropdown()"></i>
+                  <i class="fa-solid fa-circle-chevron-down" onclick="toggleDropdown()"></i>
                   <div class="dropdown-content" id="dropdownContent">
                       <a href="./components/profile.php">Profile</a>
                       <a href="./components/logout.php">Log out</a>
