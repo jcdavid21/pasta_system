@@ -55,10 +55,6 @@
             <input type="text"name="lname" id="lname" placeholder="Enter your last name" value="<?php echo $data["last_name"]; ?>" required>
           </div>
           <div class="input-box">
-            <span class="details">Username</span>
-            <input type="text" name="uname" id="uname" placeholder="Enter your username" value="<?php echo $data["ac_username"]; ?>" required>
-          </div>
-          <div class="input-box">
             <span class="details">Address</span>
             <input type="text" name="address" id="address" placeholder="Enter your address" value="<?php echo $data["address"]; ?>" required>
           </div>
@@ -95,7 +91,25 @@
     </div>
   </div>
 
+  <script>
+        document.getElementById('fname').addEventListener('input', function(e) {
+          this.value = this.value.replace(/[^A-Za-z\s]/g, ''); // Only letters and spaces allowed
+        });
+        document.getElementById('mname').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-z\s]/g, ''); // Only letters and spaces allowed
+        });
+        document.getElementById('lname').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-z\s]/g, ''); // Only letters and spaces allowed
+        });
+        document.getElementById('contact').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 11); // Only numbers allowed
+        });
 
+        document.getElementById('username').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^A-Za-z0-9]/g, ''); // Only letters and numbers allowed
+        });
+
+  </script>
   <script src="../jquery/updateProfile.js"></script>
 </body>
 </html>

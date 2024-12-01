@@ -88,7 +88,7 @@ $('.add-btn').on('click', function() {
     const depositAmnt = $("#depAmount").val().trim();
     const totalAmnt = $("#overAllTotal").val().trim().replace("₱", "").replace(",", "");
     const claimDate = $("#claimDate").val().trim();
-    const remarks = $("#remarks").val().trim();
+    let remarks = $("#remarks").val().trim();
     const current_date = new Date();
     
     // Calculate the date two weeks from now
@@ -171,6 +171,19 @@ $('.add-btn').on('click', function() {
             showConfirmButton: true,
         });
         return;
+    }
+
+    if(remarks.length > 250){
+        Swal.fire({
+            title: "Invalid remarks",
+            text: "Remarks must not exceed 250 characters.",
+            showConfirmButton: true,
+        });
+        return;
+    }
+
+    if(remarks === "" || remarks === null){
+        remarks = "No order remarks.";
     }
 
     // Confirm pickup action

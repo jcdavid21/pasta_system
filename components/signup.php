@@ -163,6 +163,13 @@
         this.value = this.value.replace(/[^A-Za-z\s]/g, ''); // Only letters and spaces allowed
     });
 
+    document.getElementById('uname').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^A-Za-z0-9]/g, ''); // Only letters and numbers allowed
+    });
+
+    document.getElementById('email').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^A-Za-z0-9]/g, ''); // Only letters and numbers allowed
+    });
     
     // Function to capitalize the first letter of each word
     function capitalizeFirstLetter(inputId) {
