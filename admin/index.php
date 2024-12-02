@@ -82,17 +82,7 @@ require_once("../backend/config/config.php");
                         <!-- Total Sales -->
                         <div>
                             <?php
-                            $query = "SELECT SUM(
-                                CASE 
-                                    WHEN tc.prod_size = 'small' THEN tp.prod_price_small 
-                                    WHEN tc.prod_size = 'medium' THEN tp.prod_price_medium 
-                                    WHEN tc.prod_size = 'large' THEN tp.prod_price_large 
-                                    ELSE 0 
-                                END * tc.prod_qnty
-                            ) AS total_sales 
-                            FROM tbl_cart tc 
-                            INNER JOIN tbl_products tp ON tc.prod_id = tp.prod_id
-                            WHERE tc.status_id = 2";
+                            $query = "SELECT SUM(td.prod_price * tc.prod_qnty) AS total_sales FROM tbl_cart tc INNER JOIN tbl_delivered_orders td ON tc.item_id = td.item_id";
                             $stmt = $conn->prepare($query);
                             $stmt->execute();
                             $result = $stmt->get_result();
@@ -166,33 +156,29 @@ require_once("../backend/config/config.php");
                                     <?php
                                     $currentYear = date("Y");
                                     $monthlyQuery = "SELECT 
-                                        m.MonthName AS Dates,
-                                        IFNULL(SUM(tc.prod_qnty * 
-                                            CASE 
-                                                WHEN tc.prod_size = 'small' THEN tp.prod_price_small
-                                                WHEN tc.prod_size = 'medium' THEN tp.prod_price_medium
-                                                WHEN tc.prod_size = 'large' THEN tp.prod_price_large
-                                                ELSE 0 
-                                            END), 0) AS serviceRequestBcCount
-                                    FROM
-                                        (SELECT 'January' AS MonthName, 1 AS MonthNumber UNION ALL
-                                        SELECT 'February', 2 UNION ALL
-                                        SELECT 'March', 3 UNION ALL
-                                        SELECT 'April', 4 UNION ALL
-                                        SELECT 'May', 5 UNION ALL
-                                        SELECT 'June', 6 UNION ALL
-                                        SELECT 'July', 7 UNION ALL
-                                        SELECT 'August', 8 UNION ALL
-                                        SELECT 'September', 9 UNION ALL
-                                        SELECT 'October', 10 UNION ALL
-                                        SELECT 'November', 11 UNION ALL
-                                        SELECT 'December', 12) AS m
-                                    LEFT JOIN tbl_cart tc ON MONTH(tc.order_date) = m.MonthNumber 
-                                        AND YEAR(tc.order_date) = ?
-                                        AND tc.status_id = 2
-                                    LEFT JOIN tbl_products tp ON tp.prod_id = tc.prod_id
-                                    GROUP BY m.MonthNumber
-                                    ORDER BY m.MonthNumber";
+                                                        m.MonthName AS Dates,
+                                                        IFNULL(SUM(
+                                                            td.prod_price * tc.prod_qnty
+                                                        ), 0) AS serviceRequestBcCount
+                                                    FROM
+                                                        (SELECT 'January' AS MonthName, 1 AS MonthNumber UNION ALL
+                                                        SELECT 'February', 2 UNION ALL
+                                                        SELECT 'March', 3 UNION ALL
+                                                        SELECT 'April', 4 UNION ALL
+                                                        SELECT 'May', 5 UNION ALL
+                                                        SELECT 'June', 6 UNION ALL
+                                                        SELECT 'July', 7 UNION ALL
+                                                        SELECT 'August', 8 UNION ALL
+                                                        SELECT 'September', 9 UNION ALL
+                                                        SELECT 'October', 10 UNION ALL
+                                                        SELECT 'November', 11 UNION ALL
+                                                        SELECT 'December', 12) AS m
+                                                    LEFT JOIN tbl_cart tc ON MONTH(tc.order_date) = m.MonthNumber 
+                                                        AND YEAR(tc.order_date) = ?
+                                                        AND tc.status_id = 2
+                                                    LEFT JOIN tbl_delivered_orders td ON tc.item_id = td.item_id
+                                                    GROUP BY m.MonthNumber
+                                                    ORDER BY m.MonthNumber;";
                                     $stmt = $conn->prepare($monthlyQuery);
                                     $stmt->bind_param("i", $currentYear);
                                     $stmt->execute();

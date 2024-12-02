@@ -62,7 +62,7 @@ $(document).ready(() => {
 
             if (!validateConfirmPassword(password, confirmPassword)) {
                 Swal.fire({
-                    title: "Password Mismatch!",
+                    title: "Invalid Password!",
                     text: "Passwords do not match.",
                     
                 });

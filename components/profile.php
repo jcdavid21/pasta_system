@@ -73,7 +73,7 @@
           </div>
           <div class="input-box">
             <span class="details">Username</span>
-            <input type="text" name="name" id="username" placeholder="Enter your username" value="<?php echo $data["ac_username"]; ?>" required>
+            <input type="text" name="name" id="uname" placeholder="Enter your username" value="<?php echo $data["ac_username"]; ?>" required>
           </div>
           <div class="input-box">
             <span class="details">Current Password</span>

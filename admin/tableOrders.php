@@ -91,7 +91,7 @@ require_once("../backend/config/config.php");
                                     <tbody>
                         <?php
                             $status_id = isset($_GET["status_id"]) ? $_GET["status_id"] : 3;
-                            $query = "SELECT 
+                            $query = $status_id != 2 ? "SELECT 
                                           tc.item_id, 
                                           tc.account_id, 
                                           tc.prod_id, 
@@ -114,7 +114,31 @@ require_once("../backend/config/config.php");
                                       INNER JOIN tbl_products tp ON tp.prod_id = tc.prod_id 
                                       INNER JOIN tbl_account_details ta ON ta.account_id = tc.account_id 
                                       LEFT JOIN tbl_product_type tn ON tn.prod_type_id = tp.prod_type
-                                      WHERE tc.status_id = ?";
+                                      WHERE tc.status_id = ?" : 
+                                      
+                                      "SELECT 
+                                          tc.item_id, 
+                                          tc.account_id, 
+                                          tc.prod_id, 
+                                          tc.prod_qnty, 
+                                          tc.status_id,
+                                          tp.prod_name, 
+                                          tc.prod_size,
+                                          tc.order_date,
+                                          tc.claim_date,
+                                          td.prod_price,
+                                          SUM(td.prod_price * prod_qnty) AS total_price,
+                                          CONCAT(ta.first_name, ' ', IFNULL(ta.middle_name, ''), ' ', ta.last_name) AS full_name,
+                                          ta.contact, 
+                                          ta.address, 
+                                          tn.prod_type_name
+                                      FROM tbl_cart tc
+                                      INNER JOIN tbl_products tp ON tp.prod_id = tc.prod_id 
+                                      INNER JOIN tbl_account_details ta ON ta.account_id = tc.account_id 
+                                      INNER JOIN tbl_delivered_orders td ON td.item_id = tc.item_id
+                                      LEFT JOIN tbl_product_type tn ON tn.prod_type_id = tp.prod_type
+                                      WHERE tc.status_id = ?
+                                      GROUP BY tc.item_id";
                             $stmt = $conn->prepare($query);
                             $stmt->bind_param("i", $status_id);
                             if ($stmt === false) {
@@ -125,7 +149,12 @@ require_once("../backend/config/config.php");
                             $result = $stmt->get_result();
 
                             while ($data = $result->fetch_assoc()) {
-                                $total = $data['prod_price'] * $data['prod_qnty'];
+                                $total = 0;
+                                if ($status_id == 2) {
+                                    $total = $data["total_price"];
+                                } else {
+                                    $total = $data["prod_price"] * $data["prod_qnty"];
+                                }
                                 $formatted_date = date("F j, Y", strtotime($data['claim_date']));
                                 $prod_size = array(
                                   "small" => "12",

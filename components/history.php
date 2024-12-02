@@ -40,11 +40,12 @@ require_once("../backend/config/config.php");
     </div>
 
     <?php
-    $query = "SELECT tc.*, tp.*, ts.status_name, tpt.prod_type_name
+    $query = "SELECT tc.*, tp.*, ts.status_name, tpt.prod_type_name, td.prod_price
     FROM tbl_cart tc
     JOIN tbl_products tp ON tc.prod_id = tp.prod_id
     JOIN tbl_status ts ON tc.status_id = ts.status_id
     JOIN tbl_product_type tpt ON tp.prod_type = tpt.prod_type_id
+    JOIN tbl_delivered_orders td ON tc.item_id = td.item_id
     WHERE tc.account_id = ? AND tc.status_id IN (2, 5) ORDER BY tc.status_id ASC;";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $current_user);
@@ -53,7 +54,6 @@ require_once("../backend/config/config.php");
 
     if ($result->num_rows > 0) {
         $total = 0;
-        $subtotalOnly = 0;
         $order_price = 0;
     ?>
     <main>
@@ -69,7 +69,7 @@ require_once("../backend/config/config.php");
                                     <th>Size</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
-                                    <th>Subtotal</th>
+                                    <th>Total</th>
                                     <th>Status</th>
                                     <th></th>
                                 </tr>
@@ -82,18 +82,8 @@ require_once("../backend/config/config.php");
                                         "medium" => "14",
                                         "large" => "16"
                                     );
-                                    if($data["prod_size"] == "small"){
-                                        $subtotal = $data["prod_price_small"] * $data["prod_qnty"];
-                                        $order_price = $data["prod_price_small"];
-                                    } else if($data["prod_size"] == "medium"){
-                                        $subtotal = $data["prod_price_medium"] * $data["prod_qnty"];
-                                        $order_price = $data["prod_price_medium"];
-                                    } else {
-                                        $subtotal = $data["prod_price_large"] * $data["prod_qnty"];
-                                        $order_price = $data["prod_price_large"];
-                                    }
-                                    $total += $subtotal;
-                                    $subtotalOnly += round($order_price, 2);
+  
+                                    $total = $data["prod_price"] * $data["prod_qnty"];
                                 ?>
                                 <tr>
                                     <td>
@@ -103,13 +93,13 @@ require_once("../backend/config/config.php");
                                     </td>
                                     <td><?php echo $data["prod_name"]; ?></td>
                                     <td><?php echo $prod_size[$data["prod_size"]]; ?>"</td>
-                                    <td>₱<?php echo number_format($order_price, 2); ?></td>
+                                    <td>₱<?php echo number_format($data["prod_price"], 2); ?></td>
                                     <td>
                                         <div class="qnty-td">
                                             <div class="qnty-js"><?php echo $data["prod_qnty"]; ?></div>   
                                         </div>
                                     </td>
-                                    <td class="total-price-js">₱<span class="subtotal-js"><?php echo number_format($subtotal, 2); ?></span></td>
+                                    <td class="total-price-js">₱<span class="subtotal-js"><?php echo number_format($total, 2); ?></span></td>
                                     <td
                                     style="<?php echo $data["status_id"] == 5 ? "color: red;" : "color: green;" ?>">
                                     ><?php echo $data["status_name"] == "PROCESS" ? "PENDING" : $data["status_name"]; ?></td>

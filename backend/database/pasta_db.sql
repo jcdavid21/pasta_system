@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 01, 2024 at 08:51 AM
+-- Generation Time: Dec 02, 2024 at 03:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -123,7 +123,15 @@ CREATE TABLE `tbl_audit_log` (
 --
 
 INSERT INTO `tbl_audit_log` (`log_user_id`, `log_username`, `log_user_type`, `log_date`) VALUES
-(6, 'admin', '2', '2024-12-01 07:41:48');
+(6, 'admin', '2', '2024-12-01 07:41:48'),
+(1, 'jcdavid', '1', '2024-12-01 09:00:19'),
+(1, 'jcdavid', '1', '2024-12-01 09:04:50'),
+(1, 'jcdavid', '1', '2024-12-01 12:51:14'),
+(6, 'admin', '2', '2024-12-01 12:58:11'),
+(6, 'admin', '2', '2024-12-01 13:29:45'),
+(1, 'jcdavid', '1', '2024-12-01 13:29:54'),
+(6, 'admin', '2', '2024-12-02 13:10:11'),
+(1, 'jcdavid', '1', '2024-12-02 13:55:26');
 
 -- --------------------------------------------------------
 
@@ -138,6 +146,27 @@ CREATE TABLE `tbl_audit_trail` (
   `trail_user_type` varchar(50) DEFAULT NULL,
   `trail_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_audit_trail`
+--
+
+INSERT INTO `tbl_audit_trail` (`trail_user_id`, `trail_username`, `trail_activity`, `trail_user_type`, `trail_date`) VALUES
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-01 13:11:17'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-01 13:11:47'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-01 13:13:18'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-01 13:20:41'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-01 13:29:35'),
+(6, 'admin', 'Updated Driver Details for Item ID: 27', 'Admin', '2024-12-02 13:35:51'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-02 13:35:59'),
+(6, 'admin', 'Updated Driver Details for Item ID: 27', 'Admin', '2024-12-02 13:37:29'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-02 13:37:35'),
+(6, 'admin', 'Updated Driver Details for Item ID: 27', 'Admin', '2024-12-02 13:42:38'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-02 13:42:45'),
+(6, 'admin', 'Updated Driver Details for Item ID: 27', 'Admin', '2024-12-02 13:44:44'),
+(6, 'admin', 'Updated Driver Details for Item ID: 28', 'Admin', '2024-12-02 13:44:51'),
+(6, 'admin', 'Updated Product ID: 1', 'Admin', '2024-12-02 13:53:36'),
+(6, 'admin', 'Updated Product ID: 1', 'Admin', '2024-12-02 13:55:10');
 
 -- --------------------------------------------------------
 
@@ -163,8 +192,27 @@ CREATE TABLE `tbl_cart` (
 --
 
 INSERT INTO `tbl_cart` (`item_id`, `prod_id`, `prod_qnty`, `prod_size`, `order_date`, `claim_date`, `status_id`, `order_remarks`, `cancel_remarks`, `account_id`) VALUES
-(27, 1, 1, 'large', '2024-12-01', '2024-12-16', 3, 'No remarks', 'No remarks', 1),
-(28, 5, 2, 'large', '2024-12-01', '2024-12-16', 3, 'No order remarks', 'No remarks', 1);
+(27, 1, 1, 'large', '2024-12-02', '2024-12-16', 2, 'No remarks', 'No remarks', 1),
+(28, 5, 2, 'large', '2024-12-02', '2024-12-16', 2, 'No order remarks', 'No remarks', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_delivered_orders`
+--
+
+CREATE TABLE `tbl_delivered_orders` (
+  `item_id` int(11) NOT NULL,
+  `prod_price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_delivered_orders`
+--
+
+INSERT INTO `tbl_delivered_orders` (`item_id`, `prod_price`) VALUES
+(28, 800),
+(27, 800);
 
 -- --------------------------------------------------------
 
@@ -306,6 +354,14 @@ CREATE TABLE `tbl_rider_details` (
   `rider_remarks` varchar(255) DEFAULT 'No remarks'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbl_rider_details`
+--
+
+INSERT INTO `tbl_rider_details` (`rider_id`, `item_id`, `rider_name`, `rider_contact`, `rider_remarks`) VALUES
+(16, 27, 'JuanDavid', '09565535401', 'None'),
+(17, 28, 'JuanDavid', '09565535401', 'None');
+
 -- --------------------------------------------------------
 
 --
@@ -363,6 +419,15 @@ CREATE TABLE `tbl_transactions` (
   `activity_date` date NOT NULL,
   `item_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_transactions`
+--
+
+INSERT INTO `tbl_transactions` (`user_id`, `user_name`, `user_type`, `user_activity`, `activity_date`, `item_id`) VALUES
+(6, 'admin', '2', 'Claimed item ', '2024-12-01', 28),
+(6, 'admin', '2', 'Claimed item ', '2024-12-02', 28),
+(6, 'admin', '2', 'Claimed item ', '2024-12-02', 27);
 
 --
 -- Indexes for dumped tables
@@ -460,7 +525,7 @@ ALTER TABLE `tbl_account_status`
 -- AUTO_INCREMENT for table `tbl_cart`
 --
 ALTER TABLE `tbl_cart`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_item_feedback`
@@ -502,7 +567,7 @@ ALTER TABLE `tbl_reports`
 -- AUTO_INCREMENT for table `tbl_rider_details`
 --
 ALTER TABLE `tbl_rider_details`
-  MODIFY `rider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `rider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_role`

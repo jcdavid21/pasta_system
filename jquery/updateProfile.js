@@ -29,7 +29,6 @@ $(document).ready(function(){
         const contact = document.getElementById("contact").value;    
         const password = document.getElementById("password").value;    
         const confirmPass = document.getElementById("confirmPass").value;
-        const userName = document.getElementById("username").value;
         const gender = document.getElementById("gender").value; 
         
         if(fName === '' || fName === null)
@@ -63,13 +62,8 @@ $(document).ready(function(){
             return;
         }
 
-        if(userName === '' || userName === null)
-        {
-            swal("Empty Field!", "Username is required!", "warning");
-            return;
-        }
 
-        if(fName && lName && username && address && contact && password && gender && userName) {
+        if(fName && lName && username && address && contact && password && gender) {
             if (!validateContactNo(contact)) {
                 swal("Invalid Contact Number!", "Contact number must be 11 digits long and start with 09.", "warning");
                 return;
@@ -103,7 +97,6 @@ $(document).ready(function(){
                     password,
                     confirmPass,
                     gender,
-                    userName
                 },
                 success: function(response) {
                     if(response === "empty") {

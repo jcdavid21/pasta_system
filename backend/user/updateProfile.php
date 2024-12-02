@@ -14,7 +14,6 @@ if(isset($_POST["fName"]) && isset($_POST["lName"])
     $address = $_POST["address"];
     $contact = $_POST["contact"];
     $gender = $_POST["gender"];
-    $username = $_POST["userName"];
 
     $password = $_POST["password"];  // current password
     $newPassword = $_POST["confirmPass"];  // new password
